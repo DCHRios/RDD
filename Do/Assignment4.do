@@ -149,11 +149,18 @@ Standard errors in parentheses
 (output written to Table2.rtf)
 
 
-*6. Replicate Figure 2
-cmogram 
+*6. Replicate Figure 2 
+*Linear
+rdplot acc bac1, c(0.08) graph_options(graphregion(color(white)) ti("Panel A. Accident") xti("BAC", margin(medium)) name(grap1, replace)) p(1)
+graph export "Acc1.png", as(png) replace 
+rdplot male bac1, c(0.08) graph_options(graphregion(color(white)) ti("Panel B. Male") xti("BAC", margin(medium)) name(grap2, replace)) p(1) 
+graph export "Male2.png", as(png) replace 
+rdplot aged bac1, c(0.08) graph_options(graphregion(color(white)) ti("Panel C. Age") xti("BAC", margin(medium)) name(grap3, replace)) p(1) 
+graph export "Age3.png", as(png) replace 
+rdplot white bac1, c(0.08) graph_options(graphregion(color(white))ti("Panel D. White") xti("BAC", margin(medium))name(grap4, replace)) p(1) 
+graph export "White4.png", as(png) replace 
 
-
-*7. Reclicate Table 3 
+*7. Replicate Table 3 
 . eststo: reg recidivism BAC1, vce(robust)
 
 Linear regression                               Number of obs     =    214,558
@@ -228,6 +235,11 @@ N                  214558          214558          214558
 Standard errors in parentheses
 * p<0.05, ** p<0.01, *** p<0.001
 
+*8. Recreate the top panel of Figure 3 according to the following rule: 
+*a.	Fit linear fit using only observations with less than 0.15 bac on the bac1
+*b.	Fit quadratic fit using only observations with less than 0.15 bac on the bac1
 
-*8. 
-Drop BAC1 if bac1<0.15
+drop if bac1>=0.15
+rdplot recidivism bac1, c(0.08) graph_options(graphregion(color(white)) ti("LinearF") xti("BAC", margin(medium)) name(grap6, replace)) p(1)
+rdplot recidivism bac1, c(0.08) graph_options(graphregion(color(white)) ti("QuadraticF") xti("BAC", margin(medium)) name(grap7, replace)) p(2)
+
